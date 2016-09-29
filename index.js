@@ -16,6 +16,7 @@ app.use(express.static(__dirname + '/public'))
 var Schema = mongoose.Schema;
 
 var cartSchema = new Schema({
+  date: Date,		
   name: String,
   cart: Object,
   total: Number,
@@ -54,7 +55,7 @@ var mongodbURI = 'mongodb://heroku_rt8s2cqz:deqbkh89884uohtnr9afghm1p7@ds029436.
 //for local testing
 //var localdb = 'mongodb://localhost/test';
 
-//Connecting local mongodb
+//Connecting to mongodb
 mongoose.connect(mongodbURI);
 
 var Cart = mongoose.model('Cart', cartSchema);
@@ -80,6 +81,7 @@ app.post('/orders', function(req, res){
   console.log(req.body);
   
   var cart_data = {
+  	date: req.body.date,
     name: req.body.name,
     cart: JSON.parse(req.body.cart),
     total: req.body.total,
